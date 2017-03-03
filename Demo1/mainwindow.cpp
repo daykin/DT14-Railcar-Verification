@@ -1,5 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <SteelCoil.h>
+#include <QListIterator>
+
+class SteelCoil;
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -95,7 +100,7 @@ void MainWindow::on_correctButton_VerifyID_clicked()
 
     widget->setLayout(containerLayout);
 
-    ui->scrollArea_ScanCoil->setWidget(widget);
+   // ui->scrollArea_ScanCoil->setWidget(widget);
 }
 
 //scanCoil click functions
@@ -112,6 +117,25 @@ void MainWindow::on_mainButton_ScanCoil_clicked()
 void MainWindow::on_confirmButton_ScanCoil_clicked()
 {
     //BARCODE SCANNING LOGIC HERE
+    QList<QString>::ConstIterator Iter = qFind(this->myList.begin(),
+                                           this->myList.end(),
+                                           ui->barcodeInput_ScanCoil->toPlainText());
+    if (Iter != this->myList.end())
+    {
+        QAbstractItemModel *model = ui->coils_preloaded_list->model();
+        QModelIndexList matches = model->match( model->index(0,0), Qt::MatchExactly, ui->barcodeInput_ScanCoil->toPlainText() );
+        foreach( const QModelIndex &index, matches )
+        {
+            QTableWidgetItem *newitem = ui->coils_preloaded_list->item( index.row(), index.column() );
+            // Do something with your new-found item ...
+            newitem->setBackground(Qt::green);
+        }
+    }
+
+
+
+
+
 }
 
 //jobList click functions
@@ -141,31 +165,48 @@ QWidget* MainWindow::buildMainBlock(){
     left->addWidget(empty);
 
     //left->addSpacerItem(space);
+//    QLabel* coil1 = new QLabel();
+//    coil1->setText("855-11944");
+//    coil1->setStyleSheet("background-color: rgba(246, 255, 12, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px;");
+//    coil1->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
 
-    QLabel* coil1 = new QLabel();
-    coil1->setText("COIL ID");
-    coil1->setStyleSheet("background-color: rgba(246, 255, 12, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px;");
-    coil1->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
+//    QLabel* coil2 = new QLabel();
+//    coil2->setText("COIL ID");
+//    coil2->setStyleSheet("background-color: rgba(246, 255, 12, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px;");
+//    coil2->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
 
-    QLabel* coil2 = new QLabel();
-    coil2->setText("COIL ID");
-    coil2->setStyleSheet("background-color: rgba(246, 255, 12, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px;");
-    coil2->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
+//    QLabel* coil3 = new QLabel();
+//    coil3->setText("COIL ID");
+//    coil3->setStyleSheet("background-color: rgba(246, 255, 12, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px;");
+//    coil3->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
 
-    QLabel* coil3 = new QLabel();
-    coil3->setText("COIL ID");
-    coil3->setStyleSheet("background-color: rgba(246, 255, 12, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px;");
-    coil3->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
-
-    right->addWidget(coil1);
-    right->addWidget(coil2);
-    right->addWidget(coil3);
+//    right->addWidget(coil1);
+//    right->addWidget(coil2);
+//    right->addWidget(coil3);
 
     mainLayout->addLayout(left);
     mainLayout->addLayout(right);
 
     widget->setStyleSheet("border: 1px solid black;  margin: 5px;");
     widget->setLayout(mainLayout);
+
+
+    const QString ID1 = "855-11944";
+    const QString ID2 = "222-22222";
+    const QString ID3 = "333-33333";
+    SteelCoil* coil11 = new SteelCoil(ID1);
+    SteelCoil* coil12 = new SteelCoil(ID2);
+    SteelCoil* coil13 = new SteelCoil(ID3);
+
+
+    ui->coils_preloaded_list->setRowCount(3);
+    ui->coils_preloaded_list->setColumnCount(1);
+    ui->coils_preloaded_list->setHorizontalHeaderItem(0,new QTableWidgetItem("Coil IDs"));
+    ui->coils_preloaded_list->setItem(0,0,new QTableWidgetItem(coil11->GetCoil()));
+    ui->coils_preloaded_list->setItem(0,1,new QTableWidgetItem(coil12->GetCoil()));
+    ui->coils_preloaded_list->setItem(0,2,new QTableWidgetItem(coil13->GetCoil()));
+
+    this->myList << coil11->GetCoil() << coil12->GetCoil() << coil13->GetCoil();
 
     return widget;
 }

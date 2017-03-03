@@ -501,7 +501,7 @@
               <property name="maximumSize">
                <size>
                 <width>200</width>
-                <height>25</height>
+                <height>50</height>
                </size>
               </property>
              </widget>
@@ -522,6 +522,9 @@
            </layout>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="coils_preloaded_list"/>
         </item>
         <item>
          <widget class="QLabel" name="label_5">
@@ -549,29 +552,6 @@
           <property name="alignment">
            <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QScrollArea" name="scrollArea_ScanCoil">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Plain</enum>
-          </property>
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>764</width>
-             <height>181</height>
-            </rect>
-           </property>
-          </widget>
          </widget>
         </item>
         <item>
@@ -700,7 +680,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>66</width>
+             <width>76</width>
              <height>16</height>
             </rect>
            </property>
@@ -749,7 +729,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>17</height>
     </rect>
    </property>
   </widget>

@@ -24,9 +24,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    steelcoil.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    steelcoil.h
 
 FORMS    += mainwindow.ui
 

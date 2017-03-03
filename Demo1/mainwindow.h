@@ -7,6 +7,10 @@
 #include <QCameraImageCapture>
 #include <QCameraViewfinder>
 #include <QScreen>
+#include <QString>
+#include "SteelCoil.h"
+
+
 
 namespace Ui {
 class MainWindow;
@@ -42,6 +46,13 @@ private:
     Ui::MainWindow *ui;
     QPixmap camImage;
     QCamera* camera;
+    QList<QString> myList;
+
+
+
+
+
+
 };
 
 #endif // MAINWINDOW_H

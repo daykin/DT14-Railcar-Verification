@@ -467,7 +467,7 @@ public:
         scrollArea_JobList->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 76, 16));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 774, 384));
         scrollArea_JobList->setWidget(scrollAreaWidgetContents_2);
 
         verticalLayout_7->addWidget(scrollArea_JobList);
@@ -503,7 +503,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(3);
+        stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

@@ -1,10 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <SteelCoil.h>
+#include "SteelCoil.h"
 #include <QListIterator>
 
-class SteelCoil;
 
+
+class SteelCoil;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -116,21 +117,31 @@ void MainWindow::on_mainButton_ScanCoil_clicked()
 
 void MainWindow::on_confirmButton_ScanCoil_clicked()
 {
+
     //BARCODE SCANNING LOGIC HERE
-    QList<QString>::ConstIterator Iter = qFind(this->myList.begin(),
-                                           this->myList.end(),
-                                           ui->barcodeInput_ScanCoil->toPlainText());
-    if (Iter != this->myList.end())
+    QList<QString> tempVect;
+    for (int i = 0 ; i < _tempCar->getCoilVector().size();i++)
+    {
+       tempVect <<_tempCar->getCoilVector()[i]->GetCoil();
+    }
+
+    QList<QString>::ConstIterator Iter = qFind(tempVect.begin(),
+                                               tempVect.end(),
+                                               ui->barcodeInput_ScanCoil->toPlainText());
+    if (Iter != tempVect.end())
     {
         QAbstractItemModel *model = ui->coils_preloaded_list->model();
-        QModelIndexList matches = model->match( model->index(0,0), Qt::MatchExactly, ui->barcodeInput_ScanCoil->toPlainText() );
+        QModelIndexList matches = model->match( model->index(0,1), Qt::MatchExactly, ui->barcodeInput_ScanCoil->toPlainText() );
         foreach( const QModelIndex &index, matches )
         {
             QTableWidgetItem *newitem = ui->coils_preloaded_list->item( index.row(), index.column() );
             // Do something with your new-found item ...
             newitem->setBackground(Qt::green);
+            ui->barcodeInput_ScanCoil->clear();
+
         }
     }
+
 
 
 
@@ -191,22 +202,40 @@ QWidget* MainWindow::buildMainBlock(){
     widget->setLayout(mainLayout);
 
 
-    const QString ID1 = "855-11944";
-    const QString ID2 = "222-22222";
-    const QString ID3 = "333-33333";
-    SteelCoil* coil11 = new SteelCoil(ID1);
-    SteelCoil* coil12 = new SteelCoil(ID2);
-    SteelCoil* coil13 = new SteelCoil(ID3);
+    /*** Back-end function for Building Database
+     **  and Comparing Input values
+    **/
+    const QString idCar = "IHB 166590"; // temporary input for OCR
+
+    // build sample database
+    ds->BuildDatabase();
+
+    // Get RailCar object -- also comparison function
+    _tempCar = ds->GetCar(idCar);
+
+    // if railcar object is not nullptr -- exist in database
+    if (_tempCar != nullptr)
+    {
+        // build sample coil data
+        _tempCar->BuildCoilData(idCar);
+
+        // build table that contains RailCar ID and Coil IDs
+        ui->coils_preloaded_list->setRowCount(_tempCar->VectCoilSize());
+        ui->coils_preloaded_list->setColumnCount(2);
+        ui->coils_preloaded_list->setHorizontalHeaderItem(0,new QTableWidgetItem("RC ID"));
+        ui->coils_preloaded_list->setHorizontalHeaderItem(1,new QTableWidgetItem("Coil IDs"));
+        ui->coils_preloaded_list->setItem(0,0,new QTableWidgetItem(idCar));
+        for (int i = 0 ; i < _tempCar->VectCoilSize(); i ++)
+        {
+            // put all the coils IDs in the table for checking purposes
+            ui->coils_preloaded_list->setItem(i,1,new QTableWidgetItem(_tempCar->getCoilVector()[i]->GetCoil()));
+
+        }
+
+    }
+    // else -- error handling for wrong RailCar ID
 
 
-    ui->coils_preloaded_list->setRowCount(3);
-    ui->coils_preloaded_list->setColumnCount(1);
-    ui->coils_preloaded_list->setHorizontalHeaderItem(0,new QTableWidgetItem("Coil IDs"));
-    ui->coils_preloaded_list->setItem(0,0,new QTableWidgetItem(coil11->GetCoil()));
-    ui->coils_preloaded_list->setItem(0,1,new QTableWidgetItem(coil12->GetCoil()));
-    ui->coils_preloaded_list->setItem(0,2,new QTableWidgetItem(coil13->GetCoil()));
-
-    this->myList << coil11->GetCoil() << coil12->GetCoil() << coil13->GetCoil();
 
     return widget;
 }

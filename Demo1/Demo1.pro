@@ -25,10 +25,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    steelcoil.cpp
+    steelcoil.cpp \
+    shipmentschedule.cpp \
+    railcar.cpp
 
 HEADERS  += mainwindow.h \
-    steelcoil.h
+    steelcoil.h \
+    shipmentschedule.h \
+    railcar.h
 
 FORMS    += mainwindow.ui
 

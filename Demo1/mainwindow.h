@@ -9,6 +9,8 @@
 #include <QScreen>
 #include <QString>
 #include "SteelCoil.h"
+#include "shipmentschedule.h"
+#include "railcar.h"
 
 
 
@@ -46,13 +48,12 @@ private:
     Ui::MainWindow *ui;
     QPixmap camImage;
     QCamera* camera;
+
+    ShipmentSchedule* ds;
+
+    RailCar* _tempCar;
+    // to change this - this should be in railcar class
     QList<QString> myList;
-
-
-
-
-
-
 };
 
 #endif // MAINWINDOW_H

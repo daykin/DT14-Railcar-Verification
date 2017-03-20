@@ -2,7 +2,10 @@
 
 SteelCoil::SteelCoil()
 {
+}
 
+SteelCoil::~SteelCoil()
+{
 }
 
 SteelCoil::SteelCoil(QString id)

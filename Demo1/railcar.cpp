@@ -6,6 +6,9 @@ RailCar::RailCar()
 
 }
 
+RailCar::~RailCar()
+{
+}
 
 RailCar::RailCar(const QString carID)
 {

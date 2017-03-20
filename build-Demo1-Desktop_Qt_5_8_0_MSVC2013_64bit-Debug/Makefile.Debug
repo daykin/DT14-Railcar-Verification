@@ -762,6 +762,74 @@ debug\mainwindow.obj: ..\Demo1\mainwindow.cpp ../Demo1/mainwindow.h \
 		../Demo1/steelcoil.h \
 		../Demo1/railcar.h \
 		ui_mainwindow.h \
+		..\..\5.8\msvc2013_64\include\QtCore\QVariant \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QAction \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qaction.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qactiongroup.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QApplication \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qapplication.h \
+		..\..\5.8\msvc2013_64\include\QtCore\qcoreapplication.h \
+		..\..\5.8\msvc2013_64\include\QtCore\qeventloop.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qdesktopwidget.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qguiapplication.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qinputmethod.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QButtonGroup \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qbuttongroup.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QHBoxLayout \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qboxlayout.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qlayout.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qlayoutitem.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qgridlayout.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QHeaderView \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qheaderview.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qabstractitemview.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qabstractscrollarea.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qframe.h \
+		..\..\5.8\msvc2013_64\include\QtCore\qabstractitemmodel.h \
+		..\..\5.8\msvc2013_64\include\QtCore\qitemselectionmodel.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qabstractitemdelegate.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qstyleoption.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qvalidator.h \
+		..\..\5.8\msvc2013_64\include\QtCore\qregularexpression.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qslider.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qabstractslider.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qstyle.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qtabbar.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qrubberband.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QLabel \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qlabel.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QMenuBar \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qmenubar.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qmenu.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QPlainTextEdit \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qplaintextedit.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qtextedit.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qtextdocument.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qtextoption.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qtextcursor.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qtextformat.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qpen.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qabstracttextdocumentlayout.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qtextlayout.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qglyphrun.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qrawfont.h \
+		..\..\5.8\msvc2013_64\include\QtGui\qfontdatabase.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QPushButton \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qpushbutton.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qabstractbutton.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QScrollArea \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qscrollarea.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QSpacerItem \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QStackedWidget \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qstackedwidget.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QStatusBar \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qstatusbar.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QTableWidget \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qtablewidget.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\qtableview.h \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QVBoxLayout \
+		..\..\5.8\msvc2013_64\include\QtWidgets\QWidget \
 		..\..\5.8\msvc2013_64\include\QtCore\QListIterator
 
 debug\steelcoil.obj: ..\Demo1\steelcoil.cpp ../Demo1/steelcoil.h \

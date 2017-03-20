@@ -12,9 +12,14 @@ private:
 
 
 public:
-    SteelCoil();
-    SteelCoil(QString id);
+    SteelCoil(); // default constructor
+
+    SteelCoil(QString id); //constructor with ID
+
+    //copy constructor
+    SteelCoil(const SteelCoil &other);
     QString GetCoil();
+    ~SteelCoil();
 
 
 };

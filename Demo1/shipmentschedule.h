@@ -12,6 +12,8 @@ public:
     // initialize railcar database -- can improvise to be ShipmentSchedule(date);
     ShipmentSchedule();
 
+    //coppy constructor
+    ShipmentSchedule(const ShipmentSchedule &other);
     void BuildDatabase();
 
     // Compare if RailCar in database
@@ -20,6 +22,7 @@ public:
 
     RailCar* GetCar(const QString id);
 
+    ~ShipmentSchedule();
 
 
 private:

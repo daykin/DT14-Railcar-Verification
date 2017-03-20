@@ -11,8 +11,11 @@ class RailCar
 public:
     RailCar();
 
-    // initialize all the coils number correspond to the carID
+    // constructor for railcar
     RailCar(const QString carID);
+
+    //coppy constructor
+    RailCar(const RailCar &other);
 
     void BuildCoilData(const QString carID);
 
@@ -22,6 +25,10 @@ public:
     QString getCarID();
 
     QVector<SteelCoil*> getCoilVector();
+
+
+    ~RailCar();
+
 
 
 private:

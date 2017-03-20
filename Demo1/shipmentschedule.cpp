@@ -7,6 +7,11 @@ ShipmentSchedule::ShipmentSchedule()
 {
 }
 
+ShipmentSchedule::~ShipmentSchedule()
+{
+
+}
+
 void ShipmentSchedule::BuildDatabase()
 {
 

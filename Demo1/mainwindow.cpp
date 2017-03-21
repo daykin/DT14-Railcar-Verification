@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "SteelCoil.h"
 #include <QListIterator>
+#include <QMessageBox>
 
 
 
@@ -37,6 +38,11 @@ void MainWindow::init(){
     else{
         qInfo("No camera available");
     }
+
+    ds = new ShipmentSchedule();
+
+    // build sample database
+    ds->BuildDatabase();
 }
 
 //main menu click functions
@@ -119,34 +125,63 @@ void MainWindow::on_confirmButton_ScanCoil_clicked()
 {
 
     //BARCODE SCANNING LOGIC HERE
+
+    QString s = ui->barcodeInput_ScanCoil->toPlainText(); //assign plaintext
+    QString subString=s.mid(0,1);
+    QString barcodenum = s;
+
+    ui->barcodeInput_ScanCoil->clear();//clear text box everytime
+
     QList<QString> tempVect;
     for (int i = 0 ; i < _tempCar->getCoilVector().size();i++)
     {
        tempVect <<_tempCar->getCoilVector()[i]->GetCoil();
     }
 
+    if(subString=="I"||subString=="O")          //parsing
+    {
+        s = s.simplified();
+        QStringList barcode = s.split("A");
+        barcodenum = barcode.at(1);
+        barcodenum = barcodenum.simplified();
+    }
+    if (subString=="*")
+    {
+    QStringList barcode = s.split("*");
+    barcodenum = barcode.at(1);
+    }
+
     QList<QString>::ConstIterator Iter = qFind(tempVect.begin(),
                                                tempVect.end(),
-                                               ui->barcodeInput_ScanCoil->toPlainText());
+                                               barcodenum);
     if (Iter != tempVect.end())
     {
         QAbstractItemModel *model = ui->coils_preloaded_list->model();
-        QModelIndexList matches = model->match( model->index(0,1), Qt::MatchExactly, ui->barcodeInput_ScanCoil->toPlainText() );
+        QModelIndexList matches = model->match( model->index(0,1), Qt::MatchExactly, barcodenum);
         foreach( const QModelIndex &index, matches )
         {
             QTableWidgetItem *newitem = ui->coils_preloaded_list->item( index.row(), index.column() );
             // Do something with your new-found item ...
             newitem->setBackground(Qt::green);
+            coilcounter = coilcounter + 1;
             ui->barcodeInput_ScanCoil->clear();
-
         }
     }
 
+    else
+    {
+        QMessageBox::information(
+        this,tr("NOTICE"),
+                    tr("COIL ID DOES NOT MATCH RAIL CAR"));
+    }
 
+    if(coilcounter == _tempCar->VectCoilSize())
+    {
+        QTableWidgetItem *newitem = ui->coils_preloaded_list->item(0,0);
+        newitem->setBackground(Qt::green);
+    }
 
-
-
-
+    ui->barcodeInput_ScanCoil->setFocus();//setfocus
 }
 
 //jobList click functions
@@ -207,9 +242,6 @@ QWidget* MainWindow::buildMainBlock(){
     **/
     const QString idCar = "IHB 166590"; // temporary input for OCR
 
-    // build sample database
-    ds->BuildDatabase();
-
     // Get RailCar object -- also comparison function
     _tempCar = ds->GetCar(idCar);
 
@@ -229,6 +261,7 @@ QWidget* MainWindow::buildMainBlock(){
         {
             // put all the coils IDs in the table for checking purposes
             ui->coils_preloaded_list->setItem(i,1,new QTableWidgetItem(_tempCar->getCoilVector()[i]->GetCoil()));
+            ui->coils_preloaded_list->item(i,1)->setBackground(Qt::yellow);
 
         }
 

@@ -12,7 +12,7 @@ public:
     // initialize railcar database -- can improvise to be ShipmentSchedule(date);
     ShipmentSchedule();
 
-    //coppy constructor
+    //copy constructor
     ShipmentSchedule(const ShipmentSchedule &other);
     void BuildDatabase();
 
@@ -21,6 +21,8 @@ public:
 
 
     RailCar* GetCar(const QString id);
+
+    QVector<RailCar*> getCars();
 
     ~ShipmentSchedule();
 

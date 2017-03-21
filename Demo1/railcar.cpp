@@ -26,7 +26,6 @@ void RailCar::BuildCoilData(const QString carID)
     if (carID == one)
     {
 
-
         SteelCoil* coil1 = new SteelCoil("855-05865");
         SteelCoil* coil2 = new SteelCoil("854-05990");
         SteelCoil* coil3 = new SteelCoil("855-18280");

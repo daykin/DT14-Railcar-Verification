@@ -14,7 +14,7 @@ public:
     // constructor for railcar
     RailCar(const QString carID);
 
-    //coppy constructor
+    //copy constructor
     RailCar(const RailCar &other);
 
     void BuildCoilData(const QString carID);

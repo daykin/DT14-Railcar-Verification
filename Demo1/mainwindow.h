@@ -54,6 +54,7 @@ private:
     RailCar* _tempCar;
     // to change this - this should be in railcar class
     QList<QString> myList;
+    int coilcounter = 0;
 };
 
 #endif // MAINWINDOW_H

@@ -5,6 +5,7 @@ class mainwindow;
 
 ShipmentSchedule::ShipmentSchedule()
 {
+    _railcarvector = QVector<RailCar*>();
 }
 
 ShipmentSchedule::~ShipmentSchedule()
@@ -14,16 +15,13 @@ ShipmentSchedule::~ShipmentSchedule()
 
 void ShipmentSchedule::BuildDatabase()
 {
-
-    std::vector<RailCar*> stdcarvec;
-    stdcarvec.push_back(new RailCar("AOK 494535"));
-    stdcarvec.push_back(new RailCar("CSXT 493506"));
-    stdcarvec.push_back(new RailCar("IHB 166590"));
-    this->_railcarvector = QVector<RailCar*>::fromStdVector(stdcarvec);
-
-
-
-
+    //QVector<RailCar*> stdcarvec;
+    //stdcarvec.push_back(new RailCar("AOK 494535"));
+    //stdcarvec.push_back(new RailCar("CSXT 493506"));
+    //stdcarvec.push_back(new RailCar("IHB 166590"));
+    this->_railcarvector.push_back(new RailCar("AOK 494535"));
+    this->_railcarvector.push_back(new RailCar("CSXT 493506"));
+    this->_railcarvector.push_back(new RailCar("IHB 166590"));
 }
 
 /*** check if the RailCar is in the database
@@ -40,5 +38,9 @@ RailCar* ShipmentSchedule::GetCar(const QString id)
    }
    return nullptr;
 
+}
+
+QVector<RailCar*> ShipmentSchedule::getCars(){
+    return _railcarvector;
 }
 

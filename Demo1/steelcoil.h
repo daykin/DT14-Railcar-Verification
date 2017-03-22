@@ -9,19 +9,23 @@ class SteelCoil
 
 private:
     QString _id;
-
+    bool verified;
 
 public:
     SteelCoil(); // default constructor
+
+    ~SteelCoil();
 
     SteelCoil(QString id); //constructor with ID
 
     //copy constructor
     SteelCoil(const SteelCoil &other);
+
     QString GetCoil();
-    ~SteelCoil();
 
+    bool isVerified();
 
+    void verify();
 };
 
 #endif // STEELCOILS_H

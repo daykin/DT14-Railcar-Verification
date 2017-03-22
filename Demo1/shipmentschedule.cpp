@@ -15,10 +15,6 @@ ShipmentSchedule::~ShipmentSchedule()
 
 void ShipmentSchedule::BuildDatabase()
 {
-    //QVector<RailCar*> stdcarvec;
-    //stdcarvec.push_back(new RailCar("AOK 494535"));
-    //stdcarvec.push_back(new RailCar("CSXT 493506"));
-    //stdcarvec.push_back(new RailCar("IHB 166590"));
     this->_railcarvector.push_back(new RailCar("AOK 494535"));
     this->_railcarvector.push_back(new RailCar("CSXT 493506"));
     this->_railcarvector.push_back(new RailCar("IHB 166590"));
@@ -34,10 +30,8 @@ RailCar* ShipmentSchedule::GetCar(const QString id)
    {
        if (_railcarvector[i]->getCarID() == id)
            return _railcarvector[i];
-
    }
    return nullptr;
-
 }
 
 QVector<RailCar*> ShipmentSchedule::getCars(){

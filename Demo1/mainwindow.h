@@ -6,6 +6,7 @@
 #include <QCameraInfo>
 #include <QCameraImageCapture>
 #include <QCameraViewfinder>
+#include <QLabel>
 #include <QScreen>
 #include <QString>
 #include "SteelCoil.h"
@@ -26,7 +27,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    QWidget* buildMainBlock();
+    QWidget* buildMainBlock(RailCar*);
+    QLabel* buildRailCar(SteelCoil*);
 
 private slots:
     void on_scanButton_Main_clicked();
@@ -50,11 +52,8 @@ private:
     QCamera* camera;
 
     ShipmentSchedule* ds;
-
-    RailCar* _tempCar;
-    // to change this - this should be in railcar class
-    QList<QString> myList;
-    int coilcounter = 0;
+    QString ocrID;
+    RailCar* ocrCar;
 };
 
 #endif // MAINWINDOW_H

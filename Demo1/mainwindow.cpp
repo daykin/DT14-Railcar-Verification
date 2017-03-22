@@ -3,10 +3,9 @@
 #include "SteelCoil.h"
 #include <QListIterator>
 #include <QMessageBox>
+#include <QFile>
 
-
-
-class SteelCoil;
+//class SteelCoil;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,6 +19,9 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+
+    QFile img("image.png");
+    img.remove();
 }
 
 void MainWindow::init(){
@@ -39,9 +41,8 @@ void MainWindow::init(){
         qInfo("No camera available");
     }
 
-    ds = new ShipmentSchedule();
-
     // build sample database
+    ds = new ShipmentSchedule();
     ds->BuildDatabase();
 }
 
@@ -58,10 +59,11 @@ void MainWindow::on_jobButton_Main_clicked()
     QVBoxLayout* containerLayout = new QVBoxLayout();
     QWidget* widget = new QWidget();
 
-    containerLayout->addWidget(buildMainBlock());
-    containerLayout->addWidget(buildMainBlock());
-    containerLayout->addWidget(buildMainBlock());
-    containerLayout->addWidget(buildMainBlock());
+    QVector<RailCar*> cars = ds->getCars();
+
+    for(int i=0; i<cars.size(); i++){
+        containerLayout->addWidget(buildMainBlock(cars[i]));
+    }
 
     widget->setLayout(containerLayout);
 
@@ -76,13 +78,28 @@ void MainWindow::on_backButton_ScanID_clicked()
 
 void MainWindow::on_photoButton_ScanID_clicked()
 {
+    //set image to the view window
     camImage = QGuiApplication::primaryScreen()->grabWindow(ui->viewWindow_ScanID->winId());
 
     ui->stackedWidget->setCurrentIndex(2);
 
     ui->viewWindow_VerifyID->setPixmap(camImage);
 
-    ui->railcarIDLabel_VerifyID->setText("Sample text");
+    //save the image
+    if(camImage.save("image.png", "PNG")){
+        qInfo("image.png saved");
+    }
+    else{
+        qInfo("Image not saved");
+    }
+
+    //run ocr
+    // ocrID = ocr();
+
+    ocrID = "IHB 166590";
+
+    //set ocr output to textbox
+    ui->railcarIDLabel_VerifyID->setText(ocrID);
 }
 
 //verifyID click functions
@@ -98,16 +115,20 @@ void MainWindow::on_backButton_VerifyID_clicked()
 
 void MainWindow::on_correctButton_VerifyID_clicked()
 {
+    //get railcar object for confirmed id
+    ocrID = ui->railcarIDLabel_VerifyID->text();
+    ocrCar = ds->GetCar(ocrID);
+
     ui->stackedWidget->setCurrentIndex(3);
 
     QVBoxLayout* containerLayout = new QVBoxLayout();
     QWidget* widget = new QWidget();
 
-    containerLayout->addWidget(buildMainBlock());
+    containerLayout->addWidget(buildMainBlock(ocrCar));
 
     widget->setLayout(containerLayout);
 
-   // ui->scrollArea_ScanCoil->setWidget(widget);
+    ui->scrollArea_ScanCoil->setWidget(widget);
 }
 
 //scanCoil click functions
@@ -123,22 +144,15 @@ void MainWindow::on_mainButton_ScanCoil_clicked()
 
 void MainWindow::on_confirmButton_ScanCoil_clicked()
 {
-
     //BARCODE SCANNING LOGIC HERE
-
-    QString s = ui->barcodeInput_ScanCoil->toPlainText(); //assign plaintext
+    QString s = ui->barcodeInput_ScanCoil->text(); //assign plaintext
     QString subString=s.mid(0,1);
     QString barcodenum = s;
 
     ui->barcodeInput_ScanCoil->clear();//clear text box everytime
 
-    QList<QString> tempVect;
-    for (int i = 0 ; i < _tempCar->getCoilVector().size();i++)
-    {
-       tempVect <<_tempCar->getCoilVector()[i]->GetCoil();
-    }
-
-    if(subString=="I"||subString=="O")          //parsing
+    //parsing
+    if(subString=="I"||subString=="O")
     {
         s = s.simplified();
         QStringList barcode = s.split("A");
@@ -147,41 +161,33 @@ void MainWindow::on_confirmButton_ScanCoil_clicked()
     }
     if (subString=="*")
     {
-    QStringList barcode = s.split("*");
-    barcodenum = barcode.at(1);
+        QStringList barcode = s.split("*");
+        barcodenum = barcode.at(1);
     }
 
-    QList<QString>::ConstIterator Iter = qFind(tempVect.begin(),
-                                               tempVect.end(),
-                                               barcodenum);
-    if (Iter != tempVect.end())
-    {
-        QAbstractItemModel *model = ui->coils_preloaded_list->model();
-        QModelIndexList matches = model->match( model->index(0,1), Qt::MatchExactly, barcodenum);
-        foreach( const QModelIndex &index, matches )
-        {
-            QTableWidgetItem *newitem = ui->coils_preloaded_list->item( index.row(), index.column() );
-            // Do something with your new-found item ...
-            newitem->setBackground(Qt::green);
-            coilcounter = coilcounter + 1;
-            ui->barcodeInput_ScanCoil->clear();
+    //checking
+    QVector<SteelCoil*> coils = ocrCar->getCoilVector();
+
+    for(int i=0; i<coils.size(); i++){
+        if(coils[i]->GetCoil() == barcodenum && !coils[i]->isVerified()){
+            coils[i]->verify();
+            ocrCar->verify();
+
+            QVBoxLayout* containerLayout = new QVBoxLayout();
+            QWidget* widget = new QWidget();
+
+            containerLayout->addWidget(buildMainBlock(ocrCar));
+
+            widget->setLayout(containerLayout);
+
+            ui->scrollArea_ScanCoil->setWidget(widget);
+
+            return;
         }
     }
 
-    else
-    {
-        QMessageBox::information(
-        this,tr("NOTICE"),
-                    tr("COIL ID DOES NOT MATCH RAIL CAR"));
-    }
-
-    if(coilcounter == _tempCar->VectCoilSize())
-    {
-        QTableWidgetItem *newitem = ui->coils_preloaded_list->item(0,0);
-        newitem->setBackground(Qt::green);
-    }
-
-    ui->barcodeInput_ScanCoil->setFocus();//setfocus
+    //not found
+    QMessageBox::information(this,tr("NOTICE"),tr("COIL ID DOES NOT MATCH RAIL CAR"));
 }
 
 //jobList click functions
@@ -190,16 +196,24 @@ void MainWindow::on_mainButton_JobList_clicked()
     ui->stackedWidget->setCurrentIndex(0);
 }
 
-QWidget* MainWindow::buildMainBlock(){
+//utility functions
+QWidget* MainWindow::buildMainBlock(RailCar* railCar){
     QHBoxLayout* mainLayout = new QHBoxLayout();
     QVBoxLayout* left = new QVBoxLayout();
     QVBoxLayout* right = new QVBoxLayout();
     QWidget* widget = new QWidget();
 
     QLabel* id = new QLabel();
-    id->setText("RAILCAR ID");
+    id->setText(railCar->getCarID());
     id->setAlignment(Qt::AlignCenter | Qt::AlignLeft);
-    id->setStyleSheet("background-color: rgba(249, 36, 24, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px; padding: 5px;");
+
+    if(railCar->isVerified()){
+        id->setStyleSheet("background-color: rgba(13, 135, 35, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px; padding: 5px;");
+    }
+    else{
+       id->setStyleSheet("background-color: rgba(249, 36, 24, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px; padding: 5px;");
+    }
+
     id->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     left->addWidget(id);
@@ -210,25 +224,11 @@ QWidget* MainWindow::buildMainBlock(){
 
     left->addWidget(empty);
 
-    //left->addSpacerItem(space);
-//    QLabel* coil1 = new QLabel();
-//    coil1->setText("855-11944");
-//    coil1->setStyleSheet("background-color: rgba(246, 255, 12, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px;");
-//    coil1->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
+    QVector<SteelCoil*> coils = railCar->getCoilVector();
 
-//    QLabel* coil2 = new QLabel();
-//    coil2->setText("COIL ID");
-//    coil2->setStyleSheet("background-color: rgba(246, 255, 12, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px;");
-//    coil2->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
-
-//    QLabel* coil3 = new QLabel();
-//    coil3->setText("COIL ID");
-//    coil3->setStyleSheet("background-color: rgba(246, 255, 12, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px;");
-//    coil3->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
-
-//    right->addWidget(coil1);
-//    right->addWidget(coil2);
-//    right->addWidget(coil3);
+    for(int i=0; i<coils.size(); i++){
+        right->addWidget(buildRailCar(coils[i]));
+    }
 
     mainLayout->addLayout(left);
     mainLayout->addLayout(right);
@@ -236,39 +236,20 @@ QWidget* MainWindow::buildMainBlock(){
     widget->setStyleSheet("border: 1px solid black;  margin: 5px;");
     widget->setLayout(mainLayout);
 
-
-    /*** Back-end function for Building Database
-     **  and Comparing Input values
-    **/
-    const QString idCar = "IHB 166590"; // temporary input for OCR
-
-    // Get RailCar object -- also comparison function
-    _tempCar = ds->GetCar(idCar);
-
-    // if railcar object is not nullptr -- exist in database
-    if (_tempCar != nullptr)
-    {
-        // build sample coil data
-        _tempCar->BuildCoilData(idCar);
-
-        // build table that contains RailCar ID and Coil IDs
-        ui->coils_preloaded_list->setRowCount(_tempCar->VectCoilSize());
-        ui->coils_preloaded_list->setColumnCount(2);
-        ui->coils_preloaded_list->setHorizontalHeaderItem(0,new QTableWidgetItem("RC ID"));
-        ui->coils_preloaded_list->setHorizontalHeaderItem(1,new QTableWidgetItem("Coil IDs"));
-        ui->coils_preloaded_list->setItem(0,0,new QTableWidgetItem(idCar));
-        for (int i = 0 ; i < _tempCar->VectCoilSize(); i ++)
-        {
-            // put all the coils IDs in the table for checking purposes
-            ui->coils_preloaded_list->setItem(i,1,new QTableWidgetItem(_tempCar->getCoilVector()[i]->GetCoil()));
-            ui->coils_preloaded_list->item(i,1)->setBackground(Qt::yellow);
-
-        }
-
-    }
-    // else -- error handling for wrong RailCar ID
-
-
-
     return widget;
+}
+
+QLabel* MainWindow::buildRailCar(SteelCoil* sCoil){
+    QLabel* coil = new QLabel();
+    coil->setText(sCoil->GetCoil());
+    if(sCoil->isVerified()){
+        coil->setStyleSheet("background-color: rgba(13, 135, 35, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px;");
+    }
+    else{
+        coil->setStyleSheet("background-color: rgba(246, 255, 12, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px;");
+    }
+
+    coil->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
+
+    return coil;
 }

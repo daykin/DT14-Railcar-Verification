@@ -12,7 +12,10 @@ RailCar::~RailCar()
 
 RailCar::RailCar(const QString carID)
 {
+    coilsVerified = 0;
+    verified = false;
     _carID = carID;
+    this->BuildCoilData(carID);
 }
 
 void RailCar::BuildCoilData(const QString carID)
@@ -64,9 +67,7 @@ void RailCar::BuildCoilData(const QString carID)
         stdvect.push_back(coil3);
     }
 
-
     _coilvector = QVector<SteelCoil*>::fromStdVector(stdvect);
-
 }
 
 int RailCar::VectCoilSize()
@@ -82,4 +83,16 @@ QString RailCar::getCarID()
 QVector<SteelCoil*> RailCar::getCoilVector()
 {
     return this->_coilvector;
+}
+
+bool RailCar::isVerified(){
+    return verified;
+}
+
+void RailCar::verify(){
+    coilsVerified++;
+
+    if(coilsVerified == _coilvector.size()){
+        verified = true;
+    }
 }

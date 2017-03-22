@@ -18,7 +18,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="main">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -322,26 +322,18 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLabel" name="railcarIDLabel_VerifyID">
-              <property name="minimumSize">
+             <widget class="QLineEdit" name="railcarIDLabel_VerifyID">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
                <size>
                 <width>200</width>
                 <height>50</height>
                </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::Box</enum>
-              </property>
-              <property name="text">
-               <string>*Rail Car ID*</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -417,19 +409,6 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="manualButton_VerifyID">
-            <property name="minimumSize">
-             <size>
-              <width>150</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Manual Entry</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer name="horizontalSpacer_12">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -497,7 +476,13 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_8">
             <item>
-             <widget class="QPlainTextEdit" name="barcodeInput_ScanCoil">
+             <widget class="QLineEdit" name="barcodeInput_ScanCoil">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>200</width>
@@ -524,7 +509,21 @@
          </layout>
         </item>
         <item>
-         <widget class="QTableWidget" name="coils_preloaded_list"/>
+         <widget class="QScrollArea" name="scrollArea_ScanCoil">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>762</width>
+             <height>180</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="label_5">
@@ -680,8 +679,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>774</width>
-             <height>384</height>
+             <width>762</width>
+             <height>355</height>
             </rect>
            </property>
           </widget>
@@ -729,7 +728,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>17</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

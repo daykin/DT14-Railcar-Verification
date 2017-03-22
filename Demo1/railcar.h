@@ -11,6 +11,8 @@ class RailCar
 public:
     RailCar();
 
+    ~RailCar();
+
     // constructor for railcar
     RailCar(const QString carID);
 
@@ -26,13 +28,14 @@ public:
 
     QVector<SteelCoil*> getCoilVector();
 
+    bool isVerified();
 
-    ~RailCar();
-
-
+    void verify();
 
 private:
     QString _carID; //railcar ID
+    bool verified;
+    int coilsVerified;
 
     // list that contains all the coils
     QVector<SteelCoil*> _coilvector;

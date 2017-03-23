@@ -43,16 +43,10 @@ QT += multimedia multimediawidgets
 
 DESTDIR = bin
 
-LIBS += -llept -ltesseract
+QMAKE_CXXFLAGS += -fopenmp
+LIBS += -fopenmp
 
-win32 {
-    DESTDIR = ./win32
-    CONFIG += release embed_manifest_exe
-    TMAKE_CXXFLAGS += -DQT_NODLL
-    TMAKE_CXXFLAGS += -fno-exceptions -fno-rtti -static
-    #QTPLUGIN += qsvg # image formats
-     DEFINES += WINDOWS
-    #QMAKE_LFLAGS.gcc += -static-libgcc # -static
-    INCLUDEPATH += $$PWD/../../../../../../../../../cygwin64/usr/local/include
-    LIBS += -lws2_32 -L$$PWD/../../../../../../../../../cygwin64/usr/local/lib
-}
+win32: LIBS += -L$$PWD/../../../../../../../../Qt/Tools/mingw530_32/i686-w64-mingw32/lib/ -llept -ltesseract -ltiff -ljpeg -lpng -lz -lws2_32
+INCLUDEPATH += $$PWD/../../../../../../../../Qt/Tools/mingw530_32/i686-w64-mingw32/include
+
+

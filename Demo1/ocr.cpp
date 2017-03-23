@@ -8,7 +8,7 @@ OCR::OCR()
 }
 
 QString OCR::getId(QString file){
-    /*//2 to 4 characters, zero or more spaces, 5 numbers
+    //2 to 4 characters, zero or more spaces, 5 numbers
     const char* imgName = file.toStdString().c_str();
 
     //const regex rc_reg("([A-Z]{2,4})+(\\s)*+(\\d{2-6})");
@@ -33,5 +33,5 @@ QString OCR::getId(QString file){
     QString output = QString(railcarLabel);
     delete[] railcarLabel;
 
-    return output;*/
+    return output;
 }

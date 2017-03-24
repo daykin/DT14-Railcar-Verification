@@ -12,6 +12,7 @@
 #include "SteelCoil.h"
 #include "shipmentschedule.h"
 #include "railcar.h"
+#include "ocr.h"
 
 
 
@@ -54,6 +55,8 @@ private:
     ShipmentSchedule* ds;
     QString ocrID;
     RailCar* ocrCar;
+
+    OCR* ocr;
 };
 
 #endif // MAINWINDOW_H

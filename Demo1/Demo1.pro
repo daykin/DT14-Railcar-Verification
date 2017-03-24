@@ -46,7 +46,7 @@ DESTDIR = bin
 QMAKE_CXXFLAGS += -fopenmp
 LIBS += -fopenmp
 
-win32: LIBS += -L$$PWD/../../../../../../../../Qt/Tools/mingw530_32/i686-w64-mingw32/lib/ -llept -ltesseract -ltiff -ljpeg -lpng -lz -lws2_32
-INCLUDEPATH += $$PWD/../../../../../../../../Qt/Tools/mingw530_32/i686-w64-mingw32/include
+win32: LIBS += -LC:/Qt/Tools/mingw530_32/i686-w64-mingw32/lib/ -llept -ltesseract -ltiff -ljpeg -lpng -lz -lws2_32
+INCLUDEPATH += C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include
 
 

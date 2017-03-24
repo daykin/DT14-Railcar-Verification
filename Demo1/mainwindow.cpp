@@ -44,6 +44,9 @@ void MainWindow::init(){
     // build sample database
     ds = new ShipmentSchedule();
     ds->BuildDatabase();
+
+    //create ocr object
+    ocr = new OCR();
 }
 
 //main menu click functions
@@ -94,9 +97,9 @@ void MainWindow::on_photoButton_ScanID_clicked()
     }
 
     //run ocr
-    // ocrID = ocr();
+    ocrID = ocr->getId("image.png");
 
-    ocrID = "IHB 166590";
+    //ocrID = "IHB 166590";
 
     //set ocr output to textbox
     ui->railcarIDLabel_VerifyID->setText(ocrID);
@@ -118,6 +121,11 @@ void MainWindow::on_correctButton_VerifyID_clicked()
     //get railcar object for confirmed id
     ocrID = ui->railcarIDLabel_VerifyID->text();
     ocrCar = ds->GetCar(ocrID);
+
+    if(ocrCar == nullptr){
+        QMessageBox::information(this,tr("NOTICE"),tr("GIVEN RAILCAR ID NOT FOUND"));
+        return;
+    }
 
     ui->stackedWidget->setCurrentIndex(3);
 

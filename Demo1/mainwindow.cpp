@@ -22,6 +22,12 @@ MainWindow::~MainWindow()
 
     QFile img("image.png");
     img.remove();
+
+    QFile img1("out.jpg");
+    img1.remove();
+
+    QFile img2("outi.jpg");
+    img2.remove();
 }
 
 void MainWindow::init(){

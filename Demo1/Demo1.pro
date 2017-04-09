@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -39,8 +40,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-QT += multimedia multimediawidgets
-
 DESTDIR = bin
 
 QMAKE_CXXFLAGS += -fopenmp
@@ -48,5 +47,13 @@ LIBS += -fopenmp
 
 win32: LIBS += -LC:/Qt/Tools/mingw530_32/i686-w64-mingw32/lib/ -llept -ltesseract -ltiff -ljpeg -lpng -lz -lws2_32
 INCLUDEPATH += C:/Qt/Tools/mingw530_32/i686-w64-mingw32/include
+
+win32:LIBS += -LC:/opencv/dbuild/install/x86/mingw/lib/ -llibopencv_core320.dll -llibopencv_highgui320.dll -llibopencv_imgcodecs320.dll -llibopencv_imgproc320.dll -llibopencv_text320.dll
+INCLUDEPATH += C:/opencv/dbuild/install/include
+
+DISTFILES += \
+    icon.ico
+
+win32:RC_ICONS += icon.ico
 
 

@@ -37,7 +37,7 @@ string OCR::runOCR(QString file){
             cerr<<"Something broke initializing Tesseract..."<<endl;
             exit(1);
     }
-    api->SetVariable("tessedit_enable_doc_dict", 0);
+    api->SetVariable("tessedit_enable_doc_dict", "0");
 
     // plug the picture into the API
     Pix *img = pixRead(imgName);

@@ -18,6 +18,8 @@ void ShipmentSchedule::BuildDatabase()
     this->_railcarvector.push_back(new RailCar("AOK 494535"));
     this->_railcarvector.push_back(new RailCar("CSXT 493506"));
     this->_railcarvector.push_back(new RailCar("IHB 166590"));
+    this->_railcarvector.push_back(new RailCar("NS 166154"));
+    this->_railcarvector.push_back(new RailCar("NS 167155"));
 }
 
 /*** check if the RailCar is in the database

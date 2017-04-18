@@ -25,6 +25,8 @@ void RailCar::BuildCoilData(const QString carID)
     const QString one = "AOK 494535";
     const QString two = "CSXT 493506";
     const QString three = "IHB 166590";
+    const QString four = "NS 166154";
+    const QString five = "NS 167155";
 
     if (carID == one)
     {
@@ -65,6 +67,21 @@ void RailCar::BuildCoilData(const QString carID)
         stdvect.push_back(coil1);
         stdvect.push_back(coil2);
         stdvect.push_back(coil3);
+    }
+    else if (carID == four)
+    {
+        SteelCoil* coil1 = new SteelCoil("855-11944");
+        SteelCoil* coil2 = new SteelCoil("840-20888");
+        // add the coils to the _coilvector
+        stdvect.push_back(coil1);
+        stdvect.push_back(coil2);
+    } else if (carID == five)
+    {
+        SteelCoil* coil1 = new SteelCoil("854-57226");
+        SteelCoil* coil2 = new SteelCoil("840-20863");
+        // add the coils to the _coilvector
+        stdvect.push_back(coil1);
+        stdvect.push_back(coil2);
     }
 
     _coilvector = QVector<SteelCoil*>::fromStdVector(stdvect);

@@ -3,6 +3,7 @@
 #include <QString>
 #include <QVector>
 #include <vector>
+#include <QMap>
 #include "steelcoil.h"
 
 
@@ -14,12 +15,12 @@ public:
     ~RailCar();
 
     // constructor for railcar
-    RailCar(const QString carID);
+    RailCar(const QString carID, QMap<QString, QString> coils);
 
     //copy constructor
     RailCar(const RailCar &other);
 
-    void BuildCoilData(const QString carID);
+    void BuildCoilData(const QString carID, const QMap<QString, QString> coildata);
 
     // get size of vector coils
     int VectCoilSize();

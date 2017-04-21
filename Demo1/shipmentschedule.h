@@ -2,6 +2,8 @@
 #define SHIPMENTSCHEDULE_H
 #include <QVector>
 #include <QString>
+#include <QMap>
+#include <QtSql>
 #include <vector>
 #include "RailCar.h"
 
@@ -16,6 +18,8 @@ public:
     ShipmentSchedule(const ShipmentSchedule &other);
     void BuildDatabase();
 
+    void UpdateDatabase(QString coilID, RailCar* RCID);
+
     // Compare if RailCar in database
     //RailCar* CheckCar(const QString id);
 
@@ -23,6 +27,8 @@ public:
     RailCar* GetCar(const QString id);
 
     QVector<RailCar*> getCars();
+
+    QMap<QString, QString> getCoilData();
 
     ~ShipmentSchedule();
 
@@ -32,6 +38,11 @@ private:
     // contains list of railcar IDs
     QVector<RailCar*> _railcarvector;
     QVector<QString> _rcvectStr;
+    QMap<QString, QString> _map;
+
+    QString _servername = "DLI108WES7";
+    QString _dbname = "rcdata";
+    QSqlDatabase _db = QSqlDatabase::addDatabase("QODBC");
 
 };
 

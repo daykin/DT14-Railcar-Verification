@@ -4,6 +4,9 @@
 #include <QListIterator>
 #include <QMessageBox>
 #include <QFile>
+#include <unistd.h>
+#include <iostream>
+#include <QtSql>
 
 //class SteelCoil;
 
@@ -87,7 +90,6 @@ void MainWindow::on_backButton_ScanID_clicked()
 
 void MainWindow::on_photoButton_ScanID_clicked()
 {
-    //set image to the view window
     camImage = QGuiApplication::primaryScreen()->grabWindow(ui->viewWindow_ScanID->winId());
 
     ui->stackedWidget->setCurrentIndex(2);
@@ -106,9 +108,11 @@ void MainWindow::on_photoButton_ScanID_clicked()
     ocrID = ocr->getId("image.png");
 
     //ocrID = "IHB 166590";
+     ui->railcarIDLabel_VerifyID->setText(ocrID);
+    std::cerr<<ocrID.toStdString()<<endl;
 
     //set ocr output to textbox
-    ui->railcarIDLabel_VerifyID->setText(ocrID);
+
 }
 
 //verifyID click functions
@@ -165,6 +169,8 @@ void MainWindow::on_confirmButton_ScanCoil_clicked()
 
     ui->barcodeInput_ScanCoil->clear();//clear text box everytime
 
+    ui->barcodeInput_ScanCoil->setFocus();
+
     //parsing
     if(subString=="I"||subString=="O")
     {
@@ -186,6 +192,7 @@ void MainWindow::on_confirmButton_ScanCoil_clicked()
         if(coils[i]->GetCoil() == barcodenum && !coils[i]->isVerified()){
             coils[i]->verify();
             ocrCar->verify();
+            ds->UpdateDatabase(coils[i]->GetCoil(), ocrCar);
 
             QVBoxLayout* containerLayout = new QVBoxLayout();
             QWidget* widget = new QWidget();

@@ -21,6 +21,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    // remove extra comma at the end of the string
+    verified_coils = verified_coils.left(verified_coils.length()-1);
+
+    verified_RC = verified_RC.left(verified_RC.length()-1);
+
+    qDebug() << verified_coils << " " << verified_RC;
+
+    ds->UpdateDatabase(verified_coils, verified_RC);
+    
     delete ui;
 
     QFile img("image.png");
@@ -192,7 +201,16 @@ void MainWindow::on_confirmButton_ScanCoil_clicked()
         if(coils[i]->GetCoil() == barcodenum && !coils[i]->isVerified()){
             coils[i]->verify();
             ocrCar->verify();
-            ds->UpdateDatabase(coils[i]->GetCoil(), ocrCar);
+            // save verified coils into string for updating database later
+            verified_coils += "'" + coils[i]->GetCoil()+ "',";
+
+            // save verified railcar
+
+            if (ocrCar->isVerified())
+
+                verified_RC += "'" + ocrCar->getCarID() + "',";
+
+
 
             QVBoxLayout* containerLayout = new QVBoxLayout();
             QWidget* widget = new QWidget();

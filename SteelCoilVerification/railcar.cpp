@@ -29,7 +29,7 @@ void RailCar::BuildCoilData(const QString carID, const QMap<QString, QList<QStri
 
            if (carID == i.key())
            {
-               qDebug()<< i.key()<<i.value();
+               
                _coilvector.push_back(new SteelCoil(i.value()[0], i.value()[1]));
            }
            ++i;

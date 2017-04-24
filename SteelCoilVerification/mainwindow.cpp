@@ -26,8 +26,6 @@ MainWindow::~MainWindow()
 
     verified_RC = verified_RC.left(verified_RC.length()-1);
 
-    qDebug() << verified_coils << " " << verified_RC;
-
     ds->UpdateDatabase(verified_coils, verified_RC);
     
     delete ui;

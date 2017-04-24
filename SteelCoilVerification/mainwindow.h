@@ -57,6 +57,8 @@ private:
     RailCar* ocrCar;
 
     OCR* ocr;
+    QString verified_RC;
+    QString verified_coils;
 };
 
 #endif // MAINWINDOW_H

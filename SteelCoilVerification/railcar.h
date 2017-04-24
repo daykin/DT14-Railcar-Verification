@@ -15,12 +15,12 @@ public:
     ~RailCar();
 
     // constructor for railcar
-    RailCar(const QString carID, QMap<QString, QString> coils);
+    RailCar(const QString carID, QMap<QString, QList<QString>> coils, QString verfy);
 
     //copy constructor
     RailCar(const RailCar &other);
 
-    void BuildCoilData(const QString carID, const QMap<QString, QString> coildata);
+    void BuildCoilData(const QString carID, const QMap<QString, QList<QString>> coildata);
 
     // get size of vector coils
     int VectCoilSize();

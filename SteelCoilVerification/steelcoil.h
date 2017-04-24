@@ -16,7 +16,7 @@ public:
 
     ~SteelCoil();
 
-    SteelCoil(QString id); //constructor with ID
+     SteelCoil(QString id, QString verfy); //constructor with ID
 
     //copy constructor
     SteelCoil(const SteelCoil &other);

@@ -15,66 +15,99 @@ ShipmentSchedule::~ShipmentSchedule()
 
 void ShipmentSchedule::BuildDatabase()
 {
-    /**this->_railcarvector.push_back(new RailCar("AOK 494535"));
-    this->_railcarvector.push_back(new RailCar("CSXT 493506"));
-    this->_railcarvector.push_back(new RailCar("IHB 166590"));
-    this->_railcarvector.push_back(new RailCar("NS 166154"));
-    this->_railcarvector.push_back(new RailCar("NS 167155"));
-    */
+   
 
     _db.setConnectOptions();
-    QString dsn = QString("DRIVER={SQL Server}; SERVER=%1;DATABASE=%2;Trusted_Connection=Yes;").arg(_servername).arg(_dbname);
+    QString dsn = QString("DRIVER={SQL Server}; SERVER=%1;DATABASE=%2;"
+
+                          "Trusted_Connection=Yes;").arg(_servername).arg(_dbname);
+
     _db.setDatabaseName(dsn);
 
-    QMap<QString,int>key_map;
+    QMap<QString,QString>key_map;
+
 
     if (_db.open())
+
     {
+
             QSqlQuery qry;
+
             QString temp_str;
 
+
+
             if (qry.exec("SELECT * FROM [rcdata].dbo.Table_2"))
+
             {
+
                 while(qry.next())
+
                 {
+
+                     QList<QString> data;
+
                     temp_str = qry.value(0).toString();
-                    key_map.insert(temp_str,1);
-                    _map.insertMulti(temp_str, qry.value(1).toString());
+
+                    key_map.insert(temp_str,qry.value(2).toString()); // build map with all railcar ID as keys
+
+                    data << qry.value(1).toString()<< qry.value(3).toString();
+
+                    _map.insertMulti(temp_str, data); //map[RailcarID] = [coilsIDs, verify_stat]
+
+
+
                 }
+
             }
+
             _db.close();
+
      }
 
-     QMap<QString, int>::const_iterator i = key_map.constBegin();
+
+
+     QMap<QString, QString>::const_iterator i = key_map.constBegin();
+
+
+
      while (i != key_map.constEnd()) {
-         this->_railcarvector.push_back(new RailCar(i.key(), _map));
+
+         this->_railcarvector.push_back(new RailCar(i.key(), _map, i.value()));
+
          ++i;
+
     }
 }
 
-void ShipmentSchedule::UpdateDatabase(QString coilID, RailCar* RCID)
+void ShipmentSchedule::UpdateDatabase(QString coilID, QString RCID)
 {
     QSqlQuery qry;
     if (_db.open())
+
     {
+
        // qry.first();
-        QString execline = QString("UPDATE Table_2 SET Coils_Verification ='Yes' WHERE CoilsID ='%1'").arg(coilID);
+
+        QString execline = QString("UPDATE Table_2 SET Coils_Verification ='Yes' "
+
+                                   "WHERE CoilsID in (%1)").arg(coilID);
+
         qry.exec(execline);
 
-        _db.close();
+
+
+        QString execRC = QString("UPDATE Table_2 SET RC_Verification ='Yes' WHERE RailcarID in (%1)").arg(RCID);
+
+
+
+        qry.exec(execRC);
+
+
+
     }
 
-    // Update railcar status in the database
-    if (_db.open())
-    {
-        if (RCID->isVerified())
-        {
-            QString execRC = QString("UPDATE Table_2 SET RC_Verification ='Yes' WHERE RailcarID ='%1'").arg(RCID->getCarID());
-            qry.exec(execRC);
-
-        }
-        _db.close();
-    }
+    _db.close();
 
 }
 

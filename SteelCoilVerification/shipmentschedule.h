@@ -5,6 +5,7 @@
 #include <QMap>
 #include <QtSql>
 #include <vector>
+#include <QList>
 #include "RailCar.h"
 
 
@@ -18,7 +19,7 @@ public:
     ShipmentSchedule(const ShipmentSchedule &other);
     void BuildDatabase();
 
-    void UpdateDatabase(QString coilID, RailCar* RCID);
+    void UpdateDatabase(QString coilID, QString RCID);
 
     // Compare if RailCar in database
     //RailCar* CheckCar(const QString id);

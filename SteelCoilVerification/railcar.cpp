@@ -10,26 +10,32 @@ RailCar::~RailCar()
 {
 }
 
-RailCar::RailCar(const QString carID,  QMap<QString, QString> coils)
+RailCar::RailCar(const QString carID,  QMap<QString, QList<QString>> coils, QString verfy)
 {
     coilsVerified = 0;
-    verified = false;
+    if (verfy == "Yes")
+        verified = true;
+    else
+        verified = false;
     _carID = carID;
     this->BuildCoilData(carID, coils);
 }
 
-void RailCar::BuildCoilData(const QString carID, const QMap<QString, QString> coildata)
+void RailCar::BuildCoilData(const QString carID, const QMap<QString, QList<QString>> coildata)
 {
-  QMap<QString, QString>::const_iterator i = coildata.constBegin();
+  QMap<QString, QList<QString>>::const_iterator i = coildata.constBegin();
        while (i != coildata.constEnd()) {
+
 
            if (carID == i.key())
            {
-               _coilvector.push_back(new SteelCoil(i.value()));
+               qDebug()<< i.key()<<i.value();
+               _coilvector.push_back(new SteelCoil(i.value()[0], i.value()[1]));
            }
            ++i;
        }
 }
+
 
 int RailCar::VectCoilSize()
 {

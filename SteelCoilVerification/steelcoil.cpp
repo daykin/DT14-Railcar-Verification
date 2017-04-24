@@ -8,9 +8,12 @@ SteelCoil::~SteelCoil()
 {
 }
 
-SteelCoil::SteelCoil(QString id)
+SteelCoil::SteelCoil(QString id, QString verfy)
 {
-    verified = false;
+    if (verfy == "Yes")
+         verified = true;
+    else
+        verified = false;
     this->_id = id;
 }
 

@@ -1,3 +1,7 @@
+/*
+ * This program is free software. For more information and usage rights see the inlcuded license file.
+ */
+
 #ifndef OCR_H
 #define OCR_H
 

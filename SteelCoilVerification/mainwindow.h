@@ -1,3 +1,7 @@
+/*
+ * This program is free software. For more information and usage rights see the inlcuded license file.
+ */
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

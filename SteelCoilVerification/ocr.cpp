@@ -1,3 +1,7 @@
+/*
+ * This program is free software. For more information and usage rights see the inlcuded license file.
+ */
+
 #include "ocr.h"
 using namespace cv;
 using namespace std;

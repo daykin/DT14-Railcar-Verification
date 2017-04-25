@@ -1,4 +1,8 @@
 #ifndef SHIPMENTSCHEDULE_H
+/*
+ * This program is free software. For more information and usage rights see the inlcuded license file.
+ */
+
 #define SHIPMENTSCHEDULE_H
 #include <QVector>
 #include <QString>

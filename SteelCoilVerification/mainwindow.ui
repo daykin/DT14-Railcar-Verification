@@ -26,14 +26,14 @@
          <widget class="QLabel" name="nameLabel_Main">
           <property name="font">
            <font>
-            <pointsize>16</pointsize>
+            <pointsize>20</pointsize>
            </font>
           </property>
           <property name="text">
            <string>Steel Car Load Verification Program</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -56,9 +56,14 @@
            <widget class="QPushButton" name="scanButton_Main">
             <property name="minimumSize">
              <size>
-              <width>150</width>
+              <width>200</width>
               <height>100</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Scan Rail Car ID</string>
@@ -91,9 +96,14 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>150</width>
+              <width>200</width>
               <height>100</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Current Jobs List</string>
@@ -123,14 +133,14 @@
          <widget class="QLabel" name="nameLabel_ScanID">
           <property name="font">
            <font>
-            <pointsize>16</pointsize>
+            <pointsize>20</pointsize>
            </font>
           </property>
           <property name="text">
            <string>Scan Rail Car ID Number</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -193,9 +203,14 @@
            <widget class="QPushButton" name="backButton_ScanID">
             <property name="minimumSize">
              <size>
-              <width>150</width>
+              <width>200</width>
               <height>100</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Back</string>
@@ -222,9 +237,14 @@
            <widget class="QPushButton" name="photoButton_ScanID">
             <property name="minimumSize">
              <size>
-              <width>150</width>
+              <width>200</width>
               <height>100</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Take Photo</string>
@@ -295,7 +315,7 @@
             </property>
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>20</pointsize>
              </font>
             </property>
             <property name="text">
@@ -331,9 +351,14 @@
               </property>
               <property name="maximumSize">
                <size>
-                <width>200</width>
+                <width>250</width>
                 <height>50</height>
                </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
               </property>
              </widget>
             </item>
@@ -369,9 +394,14 @@
            <widget class="QPushButton" name="correctButton_VerifyID">
             <property name="minimumSize">
              <size>
-              <width>150</width>
+              <width>200</width>
               <height>100</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Correct</string>
@@ -386,9 +416,14 @@
            <widget class="QPushButton" name="backButton_VerifyID">
             <property name="minimumSize">
              <size>
-              <width>150</width>
+              <width>200</width>
               <height>100</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Main Menu</string>
@@ -425,9 +460,14 @@
            <widget class="QPushButton" name="retakeButton_VerifyID">
             <property name="minimumSize">
              <size>
-              <width>150</width>
+              <width>200</width>
               <height>100</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Retake</string>
@@ -452,7 +492,7 @@
             </property>
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
+              <pointsize>20</pointsize>
              </font>
             </property>
             <property name="text">
@@ -489,6 +529,20 @@
                 <height>50</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+              <property name="inputMask">
+               <string/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>click before scanning</string>
+              </property>
              </widget>
             </item>
             <item>
@@ -499,6 +553,11 @@
                 <height>100</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Confirm</string>
               </property>
@@ -507,6 +566,27 @@
            </layout>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="railCarLabel_ScanCoil">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Rail Car:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QScrollArea" name="scrollArea_ScanCoil">
@@ -519,7 +599,7 @@
              <x>0</x>
              <y>0</y>
              <width>762</width>
-             <height>180</height>
+             <height>176</height>
             </rect>
            </property>
           </widget>
@@ -529,27 +609,6 @@
          <widget class="QLabel" name="label_5">
           <property name="text">
            <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="railCarLabel_ScanCoil">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Rail Car:</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
           </property>
          </widget>
         </item>
@@ -572,9 +631,14 @@
            <widget class="QPushButton" name="scanIDButton_ScanCoil">
             <property name="minimumSize">
              <size>
-              <width>150</width>
+              <width>200</width>
               <height>100</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Scan Rail Car ID</string>
@@ -601,9 +665,14 @@
            <widget class="QPushButton" name="mainButton_ScanCoil">
             <property name="minimumSize">
              <size>
-              <width>150</width>
+              <width>200</width>
               <height>100</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Main Menu</string>
@@ -633,7 +702,7 @@
          <widget class="QLabel" name="nameLabel_JobList">
           <property name="font">
            <font>
-            <pointsize>16</pointsize>
+            <pointsize>20</pointsize>
            </font>
           </property>
           <property name="text">
@@ -647,7 +716,7 @@
            <widget class="QLabel" name="railCarLabel_JobList">
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
+              <pointsize>16</pointsize>
              </font>
             </property>
             <property name="text">
@@ -659,7 +728,7 @@
            <widget class="QLabel" name="steelCoilLabel_JobLIst">
             <property name="font">
              <font>
-              <pointsize>12</pointsize>
+              <pointsize>16</pointsize>
              </font>
             </property>
             <property name="text">
@@ -680,7 +749,7 @@
              <x>0</x>
              <y>0</y>
              <width>762</width>
-             <height>355</height>
+             <height>338</height>
             </rect>
            </property>
           </widget>
@@ -692,9 +761,14 @@
            <widget class="QPushButton" name="mainButton_JobList">
             <property name="minimumSize">
              <size>
-              <width>150</width>
+              <width>200</width>
               <height>100</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Main Menu</string>

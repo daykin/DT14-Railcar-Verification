@@ -39,7 +39,7 @@ private:
     // contains list of railcar IDs
     QVector<RailCar*> _railcarvector;
     QVector<QString> _rcvectStr;
-    QMap<QString, QString> _map;
+    QMap<QString, QList<QString>> _map;
 
     QString _servername = "DLI108WES7";
     QString _dbname = "rcdata";

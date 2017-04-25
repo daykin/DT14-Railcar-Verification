@@ -251,6 +251,10 @@ QWidget* MainWindow::buildMainBlock(RailCar* railCar){
        id->setStyleSheet("background-color: rgba(249, 36, 24, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px; padding: 5px;");
     }
 
+    QFont font = id->font();
+    font.setPointSize(14);
+    id->setFont(font);
+
     id->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     left->addWidget(id);
@@ -285,6 +289,10 @@ QLabel* MainWindow::buildRailCar(SteelCoil* sCoil){
     else{
         coil->setStyleSheet("background-color: rgba(246, 255, 12, .4); color: black; opacity: .5; border: 1px solid black; margin: 5px;");
     }
+
+    QFont font = coil->font();
+    font.setPointSize(14);
+    coil->setFont(font);
 
     coil->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Preferred);
 
